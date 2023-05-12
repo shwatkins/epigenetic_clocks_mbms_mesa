@@ -45,7 +45,7 @@ meth <- as.data.frame(meth)
 #####################
 
 # epiToc (385 CpG sites). "The average DNAm over these 385 CpG sites"
-#meffonym.add.model("age.something", variables, coefficients, description)
+## https://static-content.springer.com/esm/art%3A10.1186%2Fs13059-016-1064-3/MediaObjects/13059_2016_1064_MOESM2_ESM.xls
 epiToc <- read_xls(paste0(clocks.dir,"/13059_2016_1064_MOESM2_ESM.xls"))
 epiToc <- epiToc[[1]][-1]
 # not all of the epitoc cpgs may be present in our daatset:
@@ -64,6 +64,7 @@ epiToc.clock <- as.data.frame(epiToc.clock)
 ######################
 
 # Zhang mortality (10 CpG sites)
+# https://doi.org/10.1038/ncomms14617
 # We can have a continuous or 0-10 risk score
 # "We .. used the fourth quartile value of cg08362785 and first 
 # quartile values of other nine CpGs as the cutoff points, to define 
@@ -85,6 +86,7 @@ meffonym.add.model("zhang.mortality", c("intercept", zhang_cpgs), c(0, zhang_coe
 ########################
 
 # MiAge (268 CpG sites)
+# https://dx.doi.org/10.1080%2F15592294.2017.1389361
 miage <- read.csv(paste0(clocks.dir,"/2017EPI0166R-s02.csv"), stringsAsFactors=F)
 # miage has functions and a script to get the mitotic age estimates
 miage_in_epic <- miage$CpG_site_ID[miage$CpG_site_ID %in% rownames(meth)]
@@ -107,6 +109,8 @@ miage.clock <- as.data.frame(miage.clock)
 #########################
 
 # Levine/PhenoAge (513 sites)
+# https://dx.doi.org/10.18632%2Faging.101414
+# https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5940111/bin/aging-10-101414-s002.csv
 levine <- read.csv(paste0(clocks.dir,"/aging-10-101414-s002.csv"),stringsAsFactors=F)
 levine_in_epic <- levine$CpG[levine$CpG %in% rownames(meth)]
 length(levine_in_epic)
@@ -139,6 +143,8 @@ head(dunedin_age)
 ########################
 
 # DNAmTL (140 CpG sites)
+# https://dx.doi.org/10.18632%2Faging.102173
+# https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6738410/bin/aging-11-102173-s003.xlsx
 # load the sites and coefficients
 dnamtl <- read.csv(paste0(clocks.dir,"/dnamtl_coefficients.csv"),stringsAsFactors=F)
 colnames(dnamtl) <- c("cpg","weight")
@@ -158,6 +164,8 @@ meffonym.add.model("dnamtl", variables=dnamtl_cpgs, coefficients=dnamtl_weights,
 
 # Zhang (514 sites)
 # script taken from github page
+# https://github.com/qzhang314/DNAm-based-age-predictor
+# https://raw.githubusercontent.com/qzhang314/DNAm-based-age-predictor/master/en.coef
 
 ############# 2. data loading and QC ##################
 print("1. Data loading and QC")
